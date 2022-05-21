@@ -1,4 +1,3 @@
-
 const { readdir, stat } = require('fs/promises');
 const path = require('path');
 const { stdout } = process;
