@@ -1,8 +1,16 @@
-const { readdir, mkdir, copyFile } = require('fs/promises');
+const { readdir, mkdir, copyFile, unlink } = require('fs/promises');
 const path = require('path');
 
 const folderPath = path.join(__dirname, 'files');
 const folderPathCopy = path.join(__dirname, 'files-copy');
+
+
+async function clearDir(directory) {
+  const files = await readdir(directory);
+  for (const file of files) {
+    unlink(path.join(directory, file));
+  }
+}
 
 (async (dirPath, dirPathCopy) => {
   let filePath =[];
@@ -15,6 +23,7 @@ const folderPathCopy = path.join(__dirname, 'files-copy');
     }
   }
   await mkdir(dirPathCopy, {recursive: true});
+  await clearDir(dirPathCopy);
   for(let i = 0; i < filePath.length; i++) {
     await copyFile(filePath[i], filePathCopy[i]);
   }
