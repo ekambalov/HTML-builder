@@ -5,14 +5,16 @@ const folderPath = path.join(__dirname, 'files');
 const folderPathCopy = path.join(__dirname, 'files-copy');
 
 
-async function clearDir(directory) {
-  const files = await readdir(directory);
-  for (const file of files) {
-    unlink(path.join(directory, file));
-  }
-}
 
 (async (dirPath, dirPathCopy) => {
+  
+  async function clearDir(directory) {
+    const files = await readdir(directory);
+    for (const file of files) {
+      unlink(path.join(directory, file));
+    }
+  }
+
   let filePath =[];
   let filePathCopy =[];
   const files = await readdir(dirPath, { withFileTypes: true });
